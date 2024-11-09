@@ -2,9 +2,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { castVote, createAnecdote } from "./reducers/anecdoteReducer";
 
 const App = () => {
-  const anecdotes = useSelector((state) => state);
+  const anecdotes = useSelector((state) =>
+    state.sort((a, b) => a.votes - b.votes)
+  );
   const dispatch = useDispatch();
   const getId = () => (100000 * Math.random()).toFixed(0);
+  const orderedAnecdotes = anecdotes.sort((a, b) => b.votes - a.votes);
 
   const vote = (id) => {
     dispatch(castVote(id));
@@ -23,7 +26,7 @@ const App = () => {
   return (
     <div>
       <h2>Anecdotes</h2>
-      {anecdotes.map((anecdote) => (
+      {orderedAnecdotes.map((anecdote) => (
         <div key={anecdote.id}>
           <div>{anecdote.content}</div>
           <div>
