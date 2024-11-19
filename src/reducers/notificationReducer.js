@@ -20,8 +20,10 @@ export const { createNotification, removeNotification } =
 export const setNotification = (message, timeout) => {
   return async (dispatch) => {
     dispatch(createNotification(message));
+
     setTimeout(() => {
-      removeNotification();
+      console.log("set time out running");
+      dispatch(removeNotification());
     }, timeout);
   };
 };

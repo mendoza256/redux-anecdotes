@@ -18,8 +18,12 @@ const AnecdoteList = () => {
     dispatch(castVote(id));
     const votedAnecdote = anecdotes.find((a) => a.id === id);
 
-    dispatch(setNotification(`You voted ${votedAnecdote}`, 5000));
+    dispatch(setNotification(`You voted ${votedAnecdote.content}`, 5000));
   };
+
+  // if (result.isError) {
+  //   return <span>Error: {error.message}</span>
+  // }
 
   return (
     <div>

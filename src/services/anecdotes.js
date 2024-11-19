@@ -7,9 +7,14 @@ const getAll = async () => {
   return response.data;
 };
 
-const createNew = async (anecdote) => {
+const createAnecdote = async (anecdote) => {
   const response = await axios.post(baseUrl, anecdote);
   return response.data;
 };
 
-export default { getAll, createNew };
+const updateAnecdote = async (anecdote) => {
+  const response = await axios.put(baseUrl, anecdote);
+  return response.data;
+};
+
+export default { getAll, createAnecdote, updateAnecdote };
