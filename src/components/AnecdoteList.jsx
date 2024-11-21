@@ -12,8 +12,19 @@ const AnecdoteList = () => {
   });
   const voteMutation = useMutation({
     mutationFn: anecdotesService.updateAnecdote,
-    onSuccess: () => {
+    onSuccess: (result) => {
       queryClient.invalidateQueries({ queryKey: ["anecdotes"] });
+      dispatch({ type: "SET", payload: `You voted ${result.content}` });
+      setTimeout(
+        () =>
+          dispatch({
+            type: "RESET",
+          }),
+        5000
+      );
+    },
+    onError: (error) => {
+      dispatch({ type: "SET", payload: error });
     },
   });
 
@@ -22,15 +33,6 @@ const AnecdoteList = () => {
   const vote = (id) => {
     const votedAnecdote = anecdotesResult.data?.find((a) => a.id === id);
     voteMutation.mutate({ ...votedAnecdote, votes: votedAnecdote.votes + 1 });
-
-    dispatch({ type: "VOTE", payload: `You voted ${votedAnecdote.content}` });
-    setTimeout(
-      () =>
-        dispatch({
-          type: "RESET",
-        }),
-      5000
-    );
   };
 
   if (anecdotesResult.isLoading) {
