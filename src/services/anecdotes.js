@@ -13,7 +13,7 @@ const createAnecdote = async (anecdote) => {
 };
 
 const updateAnecdote = async (anecdote) => {
-  const response = await axios.put(baseUrl, anecdote);
+  const response = await axios.put(baseUrl + "/" + anecdote.id, anecdote);
   return response.data;
 };
 
