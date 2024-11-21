@@ -22,7 +22,6 @@ export const setNotification = (message, timeout) => {
     dispatch(createNotification(message));
 
     setTimeout(() => {
-      console.log("set time out running");
       dispatch(removeNotification());
     }, timeout);
   };
